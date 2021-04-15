@@ -3,25 +3,26 @@ from telegram.ext import *
 import requests
 import json
 import os
+from dotenv import load_dotenv
 
-bot = Bot("1766873339:AAGhxE5yTuoj0kGpr4dGq2W0CQieVZYY8gc")
+load_dotenv()
+
+key=os.environ.get("BOT-KEY", None)
+bot = Bot(key)
 print(bot.get_me())
 
-updater = Updater("1766873339:AAGhxE5yTuoj0kGpr4dGq2W0CQieVZYY8gc", use_context=True)
+updater = Updater(key, use_context=True)
 
 dispatcher = updater.dispatcher
 
 def getXRP(update:Update, context:CallbackContext):
-    bot.send_message(chat_id=update.effective_chat.id, text="Fetching XRP/EUR value for Madeira NERDS")
-    r = requests.get("https://api.kraken.com/0/public/Ticker?pair=XRPEUR")
+    print(r.status_code)
     if r.status_code == requests.codes.ok:
         bot.send_message(chat_id=update.effective_chat.id, text=r.json()["result"]["XXRPZEUR"]["a"][0])
     else:
         bot.send_message(chat_id=update.effective_chat.id, text="I am having trouble fetching the data")
 
 def getBTC(update:Update, context:CallbackContext):
-    bot.send_message(chat_id=update.effective_chat.id, text="Fetching BTC/EUR value for Madeira NERDS")
-    r = requests.get("https://api.kraken.com/0/public/Ticker?pair=BTCEUR")
     if r.status_code == requests.codes.ok:
         bot.send_message(chat_id=update.effective_chat.id, text=r.json()["result"]["XXBTZEUR"]["a"][0])
     else:
