@@ -2,6 +2,7 @@ from telegram import *
 from telegram.ext import *
 import requests
 import json
+import os
 
 bot = Bot("1766873339:AAGhxE5yTuoj0kGpr4dGq2W0CQieVZYY8gc")
 print(bot.get_me())
