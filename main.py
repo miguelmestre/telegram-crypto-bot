@@ -29,13 +29,13 @@ class CryptoBot:
 
     def getValue(self, update:Update, context:CallbackContext):
         for coin in context.args[0].split(','):
-            pair = coin + "EUR"
+            pair = coin.upper() + "EUR"
             try:
                 r = requests.get("https://api.kraken.com/0/public/Ticker?pair=" + pair)
                 if r.status_code == requests.codes.ok:
                     # Key returned with the respponse for the pair
                     key = list(r.json()["result"].keys())[0]
-                    text = "Value for " + coin + " is " + r.json()["result"][key]["a"][0]
+                    text = "Value for " + coin.upper() + " is " + r.json()["result"][key]["a"][0] + " EUR"
                     self.bot.send_message(chat_id=update.effective_chat.id, text=text)
                 else:
                     self.bot.send_message(chat_id=update.effective_chat.id, text="I am having trouble fetching the data for " + coin)
