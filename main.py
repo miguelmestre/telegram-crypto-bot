@@ -1,7 +1,6 @@
-from telegram import *
-from telegram.ext import *
+from telegram import Bot, Update
+from telegram.ext import Updater, CommandHandler, CallbackContext
 import requests
-import json
 import os
 from dotenv import load_dotenv
 
